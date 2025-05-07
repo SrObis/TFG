@@ -1,0 +1,249 @@
+h6 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.text-muted {
+  font-size: 13px;
+  color: #666 !important;
+}
+
+.small {
+  font-size: 14px;
+}
+
+.text-primary {
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.text-primary:hover {
+  text-decoration: underline;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Box */
+.modal1 {
+  background: #fff;
+  width: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 10px 16px;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 16px;
+}
+
+.citation-style {
+  margin-bottom: 12px;
+}
+
+.citation-style strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.citation-style p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Modal Footer */
+.modal-footer {
+  display: flex;
+  justify-content: space-around;
+  background: #f1f1f1;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+.custom-text-area {
+  width: 100%;
+  height: 100px;
+  border: 0.5px solid #888;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.container1 {
+  position: relative;
+}
+
+.text-area {
+  width: 100%;
+  height: 150px;
+  padding: 15px;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  resize: none;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.text-area:focus {
+  border-color: #2563eb;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.copy-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.copy-button:hover {
+  background-color: #1e40af;
+}
+
+.copy-button:active {
+  transform: scale(0.95);
+}
+
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.active {
+  color: red;
+}
+
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-upload-label {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.file-upload-label:hover {
+  background-color: #0056b3;
+}
+
+.search-button {
+  padding: 8px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #218838;
+}
+
+pre {
+  background: #f8f9fa;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: auto;
+  max-height: 200px;
+  margin-top: 15px;
+}
+
+

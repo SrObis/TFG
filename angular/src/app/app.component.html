@@ -1,0 +1,174 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
+  <p style="color: white"></p>
+</ngx-spinner>
+
+<nav class="p-4" style="background-color: #ddd">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <!-- Logo Section -->
+      <div class="col-12 col-md-2 mb-2 mb-md-0 text-center text-md-start">
+        <!-- Uncomment this line if you have a logo -->
+        <!-- <img src="https://scholar.google.com/intl/en/scholar/images/1x/scholar_logo_24dp.png" alt="Logo" class="img-fluid" /> -->
+      </div>
+
+      <!-- Search and Actions Section -->
+      <div class="col-12 col-md-10">
+        <div class="d-flex flex-column flex-md-row justify-content-start align-items-stretch align-items-md-center">
+          <!-- Search Input -->
+          <input type="text" class="form-control mb-2 mb-md-0 w-90 w-md-75" [(ngModel)]="searchQueryText"
+            placeholder="Search for articles" />
+
+          <!-- Search Button -->
+          <button class="btn btn-primary ms-md-2" (click)="applyFilters('q', searchQueryText)">
+            Search
+          </button>
+
+          <!-- File Upload -->
+          <div class="file-upload-container ms-md-3 mt-2 mt-md-0">
+            <input type="file" accept=".txt" (change)="onFileSelected($event)" id="fileInput" class="d-none" />
+            <label for="fileInput" class="file-upload-label btn btn-primary">
+              Upload
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container mt-4">
+  <div class="row">
+    <!-- Filters Section -->
+    <div class="col-md-3 col-12 mb-3">
+      <div class="menu">
+        <ul class="menu-section">
+          <li [class.active]="getQueryParam('as_ylo') === ''" (click)="applyFilters('as_ylo', '')">
+            Any time
+          </li>
+          <li [class.active]="getQueryParam('as_ylo') === '2024'" (click)="applyFilters('as_ylo', '2024')">
+            Since 2024
+          </li>
+          <li [class.active]="getQueryParam('as_ylo') === '2023'" (click)="applyFilters('as_ylo', '2023')">
+            Since 2023
+          </li>
+          <li [class.active]="getQueryParam('as_ylo') === '2020'" (click)="applyFilters('as_ylo', '2020')">
+            Since 2020
+          </li>
+          <li class="custom-range">
+            <span (click)="toggleShowCustomRange()">Custom range...</span>
+            <div class="custom-range-inputs" *ngIf="showCustomRange">
+              <input type="text" placeholder="" class="date-input form-control mb-2" />
+              <span class="mx-2">—</span>
+              <input type="text" placeholder="" class="date-input form-control mb-2" />
+              <button class="btn btn-primary btn-sm mt-2">Search</button>
+            </div>
+          </li>
+        </ul>
+        <ul class="menu-section">
+          <li [class.active]="getQueryParam('scisbd') === ''" (click)="applyFilters('scisbd', '')">
+            Sort by relevance
+          </li>
+          <li [class.active]="getQueryParam('scisbd') === '1'" (click)="applyFilters('scisbd', '1')">
+            Sort by date
+          </li>
+        </ul>
+        <ul class="menu-section">
+          <li [class.active]="getQueryParam('as_rr') === ''" (click)="applyFilters('as_rr', '')">
+            Any type
+          </li>
+          <li [class.active]="getQueryParam('as_rr') === '1'" (click)="applyFilters('as_rr', '1')">
+            Review articles
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Search and Results Section -->
+    <div class="col-md-9 col-12">
+      <div class="search-results">
+
+        <div *ngIf="filteredResults.length == 1">
+          <div class="result-item" *ngFor="let item of filteredResults; let i = index">
+            <div class="d-none">
+              <h3 class="result-title" (click)="clickSingleArticle(i)">
+                {{ item?.title }}
+              </h3>
+              <p class="result-source">
+                <strong>Publisher:</strong> {{ item?.publisher }}
+              </p>
+              <p class="result-source">
+                <strong>Author:</strong> {{ item?.author }}
+              </p>
+              <p class="result-source"><strong>Year:</strong> {{ item?.year }}</p>
+              <p class="result-snippet">
+                <a href="{{ item?.citeurl }}">{{ item?.citeurl }}</a>
+              </p>
+            </div>
+            <div>
+              <div class="container1">
+                <textarea id="text-area" class="text-area form-control">
+                 {{ item?.content }}
+                </textarea>
+                <button class="btn btn-primary btn-sm mt-2" (click)="copyText()">Copy</button>
+              </div>
+            </div>
+            <div class="result-links mt-2">
+              <a href="javascript:void(0)" (click)="selectItem(item)">Cite</a>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="filteredResults.length > 1">
+          <div class="result-item">
+            <div>
+              <div class="container1">
+                <textarea id="text-area" class="text-area form-control" [value]="filteredText" readonly></textarea>
+                <button class="btn btn-primary btn-sm mt-2" (click)="copyText()">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal1">
+    <div class="modal-header">
+      <span>Cite</span>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="citation-style">
+        <strong>Title</strong>
+        <p>
+          {{ selectedItem?.title }}
+        </p>
+      </div>
+      <div class="citation-style">
+        <strong>Author</strong>
+        <p>
+          {{ selectedItem?.author }}
+        </p>
+      </div>
+      <div class="citation-style">
+        <strong>Publisher</strong>
+        <p>
+          {{ selectedItem?.publisher }}
+        </p>
+      </div>
+      <div class="citation-style">
+        <strong>Year</strong>
+        <p>
+          {{ selectedItem?.year }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
