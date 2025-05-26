@@ -78,8 +78,8 @@ export class AppComponent implements OnInit {
 
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       this.spinner.hide();
+      console.log(response);
 
       if (response.data.success) {
         this.filteredResults = [response.data];
@@ -116,7 +116,8 @@ export class AppComponent implements OnInit {
 
       console.log(this.fileContent);
 
-      const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+      const delay = (ms: number) =>
+        new Promise((resolve) => setTimeout(resolve, ms));
 
       const results = [];
       for (const f of this.fileContent) {
@@ -131,14 +132,11 @@ export class AppComponent implements OnInit {
       console.log(results);
       this.spinner.hide();
 
-
       const x = await Promise.all(results);
       x.forEach((result) => {
-        this.filteredResults.push(result.data)
-        this.updateFilteredText()
-      })
-
-
+        this.filteredResults.push(result.data);
+        this.updateFilteredText();
+      });
     };
 
     reader.onerror = () => {
@@ -177,16 +175,16 @@ export class AppComponent implements OnInit {
     });
   }
 
-
-  filteredText = ''
+  filteredText = '';
   updateFilteredText() {
     if (this.filteredResults && this.filteredResults.length > 1) {
-      this.filteredText = this.filteredResults.map((item:any) => item?.content).join('\n');
+      this.filteredText = this.filteredResults
+        .map((item: any) => item?.content)
+        .join('\n');
     } else {
       this.filteredText = '';
     }
   }
-
 
   convertHttpParamsToObject(params: HttpParams): { [key: string]: string } {
     const paramObj: { [key: string]: string } = {};
@@ -209,6 +207,24 @@ export class AppComponent implements OnInit {
     textArea.select();
     document.execCommand('copy');
     alert('Text copied to clipboard!');
+  }
+
+  createBobFile() {
+    const textArea = document.getElementById(
+      'text-area'
+    ) as HTMLTextAreaElement;
+    const content = textArea.value;
+
+    // Create a Blob with the content
+    const blob = new Blob([content], { type: 'text/plain' });
+
+    // Create an anchor element to trigger file download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'file.bob'; // Filename for the downloaded file
+
+    // Programmatically click the link to trigger the download
+    link.click();
   }
 
   fileContent: any;

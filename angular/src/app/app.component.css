@@ -247,3 +247,40 @@ pre {
 }
 
 
+.search-container {
+  max-width: 600px;
+  width: 100%;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+  padding: 5px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 10px 15px;
+  border-radius: 25px;
+}
+
+.search-btn, .upload-btn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+}
+
+.upload-btn {
+  background-color: #5f6368;
+  color: white;
+  border: none;
+}
